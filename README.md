@@ -4,7 +4,7 @@ In this project, DOM manipulation is demonstrated with using Javascript to add s
 
 * [Instructions](#instructions)
 * [Development](#Development)
-
+* [Credits](#Credits)
 
 ## Instructions
 To see the code, open index.html for HTML, app.js for JavaScript, styles.css for CSS .
