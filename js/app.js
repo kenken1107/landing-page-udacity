@@ -22,7 +22,16 @@
  * Define Global Variables
  * 
 */
+const fragment = document.createDocumentFragment();
+const sectionList = document.querySelectorAll("section");
 
+/**
+ * セクションの数だけ、navigationを追加する
+ *      1.セクションの「数」+「それぞれのIDを把握」を把握
+ *      2. セクションの数だけfor文を回し、liとaタグのエレメントを作成する
+ *      3. aのhrefには、上記の取得したIDを入力する
+ * 
+*/
 
 /**
  * End Global Variables
@@ -39,7 +48,13 @@
 */
 
 // build the nav
-
+const navigationBarElement = document.querySelector("#navbar__list");
+for (let i = 0; i<sectionList.length; i++){
+    const newListElement     = document.createElement("li");
+    newListElement.innerHTML = `<a class=menu__link href="#${sectionList[i].getAttribute("id")}">${sectionList[i].getAttribute("id")}</a>`
+    fragment.appendChild(newListElement);
+}
+navigationBarElement.appendChild(fragment);
 
 // Add class 'active' to section when near top of viewport
 
