@@ -48,13 +48,15 @@ const sectionList = document.querySelectorAll("section");
 */
 
 // build the nav
-const navigationBarElement = document.querySelector("#navbar__list");
-for (let i = 0; i<sectionList.length; i++){
-    const newListElement     = document.createElement("li");
-    newListElement.innerHTML = `<a class=menu__link href="#${sectionList[i].getAttribute("id")}">${sectionList[i].getAttribute("id")}</a>`
-    fragment.appendChild(newListElement);
+function buildNavigations(){
+    for (let i = 0; i<sectionList.length; i++){
+        const newListElement     = document.createElement("li");
+        newListElement.innerHTML = `<a class=menu__link href="#${sectionList[i].getAttribute("id")}">${sectionList[i].getAttribute("id")}</a>`
+        fragment.appendChild(newListElement);
+    }
+    const navigationBarElement = document.querySelector("#navbar__list");
+    navigationBarElement.appendChild(fragment);
 }
-navigationBarElement.appendChild(fragment);
 
 // Add class 'active' to section when near top of viewport
 
@@ -69,5 +71,5 @@ navigationBarElement.appendChild(fragment);
 */
 
 // Build menu 
-
+buildNavigations()
 // Scroll to section on link click
