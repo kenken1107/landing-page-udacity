@@ -26,14 +26,6 @@ const fragment = document.createDocumentFragment();
 const sectionList = document.querySelectorAll("section");
 
 /**
- * セクションの数だけ、navigationを追加する
- *      1.セクションの「数」+「それぞれのIDを把握」を把握
- *      2. セクションの数だけfor文を回し、liとaタグのエレメントを作成する
- *      3. aのhrefには、上記の取得したIDを入力する
- * 
-*/
-
-/**
  * End Global Variables
  * Start Helper Functions
  * 
@@ -42,6 +34,26 @@ function createHTMLElement(id, value){
     return `<a class=menu__link data-info=${id}>${value}</a>`
 }
 
+// Reference to: https://stackoverflow.com/questions/123999/how-can-i-tell-if-a-dom-element-is-visible-in-the-current-viewport
+function isElementInViewport(el) {
+    let top = el.offsetTop;
+    let left = el.offsetLeft;
+    let width = el.offsetWidth;
+    let height = el.offsetHeight;
+
+    while(el.offsetParent) {
+        el = el.offsetParent;
+        top += el.offsetTop;
+        left += el.offsetLeft;
+    }
+
+    return (
+        top < (window.pageYOffset + window.innerHeight) &&
+        left < (window.pageXOffset + window.innerWidth) &&
+        (top + height) > window.pageYOffset &&
+        (left + width) > window.pageXOffset
+    );
+}
 
 /**
  * End Helper Functions
@@ -63,7 +75,15 @@ function buildNavigations(){
 }
 
 // Add class 'active' to section when near top of viewport
-
+function addActiveClass(){
+    for (let i=0; i < sectionList.length; i++){
+        if (isElementInViewport(sectionList[i])){
+            sectionList[i].classList.add("your-active-class");
+        }else{
+            sectionList[i].classList.remove("your-active-class");
+        }
+    }
+}
 
 // Scroll to anchor ID using scrollTO event
 function scrollTO(event){
@@ -77,9 +97,14 @@ function scrollTO(event){
  * Begin Events
  * 
 */
-
 // Build menu 
 buildNavigations()
+
+// // Apply and Remove CSS when Scrolled section
+document.addEventListener('scroll', ()=>{
+    setActiveClass();
+});
+
 // Scroll to section on link click
 const navigationUlElement = document.querySelector('#navbar__list');
 navigationUlElement.addEventListener('click', (event)=>{
