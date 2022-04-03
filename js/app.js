@@ -39,7 +39,7 @@ const sectionList = document.querySelectorAll("section");
  * 
 */
 function createHTMLElement(id, value){
-    return `<a class=menu__link id=${id}>${value}</a>`
+    return `<a class=menu__link data-info=${id}>${value}</a>`
 }
 
 
@@ -66,9 +66,11 @@ function buildNavigations(){
 
 
 // Scroll to anchor ID using scrollTO event
-// function scrollTO(event){
-
-// }
+function scrollTO(event){
+    const idToBeScrolled            = event.target.getAttribute('data-info'); // Get ID info towards which to be for scrolling
+    const targetElementToBeScrolled = document.querySelector(`#${idToBeScrolled}`);
+    targetElementToBeScrolled.scrollIntoView({behavior: 'smooth'})
+}
 
 /**
  * End Main Functions
@@ -80,7 +82,7 @@ function buildNavigations(){
 buildNavigations()
 // Scroll to section on link click
 const navigationUlElement = document.querySelector('#navbar__list');
-navigationUlElement.addEventListener('click', (event) => {
+navigationUlElement.addEventListener('click', (event)=>{
     event.preventDefault();
-    console.log("ホゲホゲ")
-})
+    scrollTO(event);
+});
