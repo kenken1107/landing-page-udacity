@@ -38,7 +38,9 @@ const sectionList = document.querySelectorAll("section");
  * Start Helper Functions
  * 
 */
-
+function createHTMLElement(id, value){
+    return `<a class=menu__link id=${id}>${value}</a>`
+}
 
 
 /**
@@ -50,8 +52,10 @@ const sectionList = document.querySelectorAll("section");
 // build the nav
 function buildNavigations(){
     for (let i = 0; i<sectionList.length; i++){
-        const newListElement     = document.createElement("li");
-        newListElement.innerHTML = `<a class=menu__link href="#${sectionList[i].getAttribute("id")}">${sectionList[i].getAttribute("id")}</a>`
+        const newListElement = document.createElement("li");
+        const id             = sectionList[i].getAttribute("id")
+        const value          = sectionList[i].getAttribute("data-nav")
+        newListElement.innerHTML = createHTMLElement(id, value)
         fragment.appendChild(newListElement);
     }
     const navigationBarElement = document.querySelector("#navbar__list");
@@ -62,7 +66,9 @@ function buildNavigations(){
 
 
 // Scroll to anchor ID using scrollTO event
+// function scrollTO(event){
 
+// }
 
 /**
  * End Main Functions
@@ -73,3 +79,8 @@ function buildNavigations(){
 // Build menu 
 buildNavigations()
 // Scroll to section on link click
+const navigationUlElement = document.querySelector('#navbar__list');
+navigationUlElement.addEventListener('click', (event) => {
+    event.preventDefault();
+    console.log("ホゲホゲ")
+})
