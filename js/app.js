@@ -102,7 +102,7 @@ buildNavigations()
 
 // // Apply and Remove CSS when Scrolled section
 document.addEventListener('scroll', ()=>{
-    setActiveClass();
+    addActiveClass();
 });
 
 // Scroll to section on link click
